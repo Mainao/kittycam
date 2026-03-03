@@ -13,7 +13,7 @@ interface CameraViewProps {
 }
 
 export function CameraView({ onPhotoCaptured }: CameraViewProps) {
-    const { videoRef, takePhoto, flipCamera, error } = useCamera();
+    const { videoRef, takePhoto, flipCamera, error, isReady } = useCamera();
     const [isCountingDown, setIsCountingDown] = useState(false);
 
     const handleCapture = () => {
@@ -39,7 +39,7 @@ export function CameraView({ onPhotoCaptured }: CameraViewProps) {
                     autoPlay
                     playsInline
                     muted
-                    className="w-full h-full object-cover transform scale-x-[-1]"
+                    className={`w-full h-full object-cover transform scale-x-[-1] transition-opacity duration-500 ${isReady ? 'opacity-100' : 'opacity-0'}`}
                 />
                 {isCountingDown && <CountdownOverlay onFinish={handleCountdownFinish} />}
             </div>
