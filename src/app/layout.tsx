@@ -17,7 +17,7 @@ const notoSansMono = Noto_Sans_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "MeowSnap",
+    title: "KittyCam",
     description: "Cute polaroid camera app with a cat photographer 🐾",
 };
 

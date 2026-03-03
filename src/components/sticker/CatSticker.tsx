@@ -3,9 +3,9 @@ import Image from "next/image";
 type StickerVariant = "default" | "sad" | "camera";
 
 const STICKERS: Record<StickerVariant, { src: string; alt: string; priority?: boolean }> = {
-    default: { src: "/images/cat-sticker.webp",        alt: "MeowSnap cat mascot",      priority: true },
-    sad:     { src: "/images/cat-sticker-sad.webp",    alt: "MeowSnap cat sad" },
-    camera:  { src: "/images/cat-sticker-camera.webp", alt: "MeowSnap cat with camera" },
+    default: { src: "/images/cat-sticker.webp",        alt: "KittyCam cat mascot",      priority: true },
+    sad:     { src: "/images/cat-sticker-sad.webp",    alt: "Sad KittyCam cat" },
+    camera:  { src: "/images/cat-sticker-camera.webp", alt: "KittyCam cat with camera" },
 };
 
 export default function CatSticker({ variant = "default" }: { variant?: StickerVariant }) {
