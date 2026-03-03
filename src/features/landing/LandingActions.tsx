@@ -6,7 +6,7 @@ const MESSAGES = {
     default: (
         <>
             <p>Hi There!</p>
-            <p>Can I click a cute polaroid of you? 📸🐾</p>
+            <p>Can I click a cute photo of you?</p>
         </>
     ),
     rejected: (

@@ -29,8 +29,8 @@ export default function CountdownOverlay({
   if (count === 0) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="text-white text-9xl font-bold font-handwritten animate-bounce">
+    <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div key={count} className="cute-text text-9xl text-white animate-boop">
         {count}
       </div>
     </div>

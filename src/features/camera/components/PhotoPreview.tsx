@@ -6,10 +6,11 @@ import Button from "@/components/ui/Button";
 
 interface PhotoPreviewProps {
     photo: string;
+    onNext: () => void;
     onRetake: () => void;
 }
 
-export function PhotoPreview({ photo, onRetake }: PhotoPreviewProps) {
+export function PhotoPreview({ photo, onNext, onRetake }: PhotoPreviewProps) {
     const [isDeveloped, setIsDeveloped] = useState(false);
 
     // Simulate polaroid developing effect
@@ -32,6 +33,7 @@ export function PhotoPreview({ photo, onRetake }: PhotoPreviewProps) {
                     )
                 }
             >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src={photo}
                     alt="Captured photo preview"
@@ -44,7 +46,9 @@ export function PhotoPreview({ photo, onRetake }: PhotoPreviewProps) {
             </PolaroidFrame>
 
             <div className="flex space-x-4 mt-4">
-                <Button disabled={!isDeveloped}>✅ keep it</Button>
+                <Button disabled={!isDeveloped} onClick={onNext}>
+                    ✅ keep it
+                </Button>
 
                 <Button onClick={onRetake} variant="secondary">
                     🔁 retake

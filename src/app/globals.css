@@ -27,14 +27,19 @@ body {
 
 :root {
     --font-heading: "Gaegu", cursive;
-    --font-body: "Nunito", sans-serif;
+    --font-body: "Noto Sans Mono", sans-serif;
 }
 
 body {
     font-family: var(--font-body);
 }
 
-h1, h2, h3, button, .cute-text {
+h1, h2, h3, .cute-text {
     font-family: var(--font-heading);
+}
+
+button {
+    font-family: var(--font-body);
+    font-weight: 400;
 }
   

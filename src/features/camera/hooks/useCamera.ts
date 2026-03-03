@@ -5,41 +5,60 @@ export function useCamera() {
   const streamRef = useRef<MediaStream | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [facingMode, setFacingMode] = useState<"user" | "environment">("user");
+  const [isReady, setIsReady] = useState(false);
 
-  const startCamera = useCallback(async (facing: "user" | "environment") => {
-    try {
-      // Stop existing stream if any
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
 
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: facing },
-        audio: false,
-      });
+      setIsReady(false);
 
-      streamRef.current = stream;
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode },
+          audio: false,
+        });
 
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
+        if (cancelled) {
+          stream.getTracks().forEach((track) => track.stop());
+          return;
+        }
+
+        streamRef.current = stream;
+
+        if (videoRef.current) {
+          const videoElement = videoRef.current;
+          videoElement.srcObject = stream;
+
+          if (videoElement.readyState >= 1) {
+            setIsReady(true);
+          } else {
+            videoElement.onloadedmetadata = () => {
+              if (!cancelled) setIsReady(true);
+            };
+          }
+        }
+
+        setError(null);
+      } catch (err) {
+        if (!cancelled) {
+          console.error("Camera error:", err);
+          setError("Unable to access camera. Please check permissions.");
+        }
       }
-
-      setError(null);
-    } catch (err) {
-      console.error("Camera error:", err);
-      setError("Unable to access camera. Please check permissions.");
-    }
-  }, []);
-
-  useEffect(() => {
-    startCamera(facingMode);
+    })();
 
     return () => {
+      cancelled = true;
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [facingMode, startCamera]);
+  }, [facingMode]);
 
   const flipCamera = useCallback(() => {
     setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
@@ -69,5 +88,6 @@ export function useCamera() {
     takePhoto,
     flipCamera,
     error,
+    isReady,
   };
 }

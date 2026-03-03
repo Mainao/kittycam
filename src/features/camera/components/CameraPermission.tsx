@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import CatSticker from "@/components/sticker/CatSticker";
 import Button from "@/components/ui/Button";
+import CatStickerCamera from "@/components/sticker/CatStickerCamera";
 
 interface PermissionProps {
     onNext: () => void;
@@ -33,9 +33,9 @@ export function CameraPermission({ onNext }: PermissionProps) {
 
     return (
         <div className="flex flex-col items-center justify-center space-y-6 text-center min-h-screen">
-            <CatSticker />
+            <CatStickerCamera />
 
-            <h1 className="text-4xl md:text-5xl font-bold font-handwritten">
+            <h1 className="text-4xl md:text-5xl font-bold cute-text">
                 SMILEEEEE
             </h1>
 
